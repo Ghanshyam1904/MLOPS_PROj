@@ -1,6 +1,7 @@
 from src.logger.logger import logging
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 if __name__ == '__main__':
     Ingestion = DataIngestion()
@@ -12,3 +13,6 @@ if __name__ == '__main__':
     train_arr,test_arr,_ = transform.initiate_data_transformation(train_data_path,test_data_path)
     logging.info(f'Data Transformation completed {train_arr,test_arr}')
     print(f'Data Transformation completed {train_arr,test_arr}')
+
+    trainer = ModelTrainer()
+    trainer.initiate_model_trainer(train_arr,test_arr)
