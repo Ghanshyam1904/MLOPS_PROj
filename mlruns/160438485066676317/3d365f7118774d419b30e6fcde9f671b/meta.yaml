@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/Ghanshyam%20Patil/PycharmProjects/MLOPS_PROj/mlruns/160438485066676317/3d365f7118774d419b30e6fcde9f671b/artifacts
+end_time: 1762079531050
+entry_point_name: ''
+experiment_id: '160438485066676317'
+lifecycle_stage: active
+run_id: 3d365f7118774d419b30e6fcde9f671b
+run_name: masked-flea-222
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762079518115
+status: 3
+tags: []
+user_id: Ghanshyam Patil
