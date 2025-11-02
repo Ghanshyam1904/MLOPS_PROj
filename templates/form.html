@@ -2,9 +2,491 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Price Prediction Form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #adb5bd;
+        }
+
+        .submit-section {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .result-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            margin-top: 20px;
+            animation: slideInUp 0.5s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .result-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .new-prediction-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .new-prediction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(240, 147, 251, 0.3);
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .form-help {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-help h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .form-help p {
+            color: #1565c0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <a href="{{ url_for('home_page') }}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <h1><i class="fas fa-gem"></i> Diamond Price Prediction</h1>
+            <p>Enter your diamond specifications to get an accurate price prediction</p>
+        </div>
 
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Diamond Specifications</h2>
+                <p>Fill in the details below to predict your diamond's price</p>
+            </div>
+
+            <div class="form-content">
+                <div class="form-help">
+                    <h4><i class="fas fa-info-circle"></i> How to fill the form</h4>
+                    <p>Enter accurate measurements and select the appropriate quality grades for the most precise price prediction. All fields are required for accurate results.</p>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="errorText">Please fill in all required fields correctly.</span>
+                </div>
+
+                <form action="{{ url_for('predict_datapoint') }}" method="POST" id="diamondForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="carat">
+                                <i class="fas fa-weight-hanging"></i> Carat Weight
+                            </label>
+                            <input type="number" id="carat" name="carat" placeholder="e.g., 1.5" step="0.01" min="0.01" max="10" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="depth">
+                                <i class="fas fa-ruler-vertical"></i> Depth (%)
+                            </label>
+                            <input type="number" id="depth" name="depth" placeholder="e.g., 62.5" step="0.1" min="40" max="80" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="table">
+                                <i class="fas fa-square"></i> Table (%)
+                            </label>
+                            <input type="number" id="table" name="table" placeholder="e.g., 55.0" step="0.1" min="40" max="80" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="x">
+                                <i class="fas fa-expand-arrows-alt"></i> Length (mm)
+                            </label>
+                            <input type="number" id="x" name="x" placeholder="e.g., 7.5" step="0.01" min="3" max="15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="y">
+                                <i class="fas fa-expand-arrows-alt"></i> Width (mm)
+                            </label>
+                            <input type="number" id="y" name="y" placeholder="e.g., 7.3" step="0.01" min="3" max="15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="z">
+                                <i class="fas fa-expand-arrows-alt"></i> Height (mm)
+                            </label>
+                            <input type="number" id="z" name="z" placeholder="e.g., 4.6" step="0.01" min="2" max="10" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cut">
+                                <i class="fas fa-cut"></i> Cut Quality
+                            </label>
+                            <select id="cut" name="cut" required>
+                                <option value="">Select cut quality</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Good">Good</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Premium">Premium</option>
+                                <option value="Ideal">Ideal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="color">
+                                <i class="fas fa-palette"></i> Color Grade
+                            </label>
+                            <select id="color" name="color" required>
+                                <option value="">Select color grade</option>
+                                <option value="D">D (Colorless)</option>
+                                <option value="E">E (Colorless)</option>
+                                <option value="F">F (Colorless)</option>
+                                <option value="G">G (Near Colorless)</option>
+                                <option value="H">H (Near Colorless)</option>
+                                <option value="I">I (Near Colorless)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clarity">
+                                <i class="fas fa-search"></i> Clarity Grade
+                            </label>
+                            <select id="clarity" name="clarity" required>
+                                <option value="">Select clarity grade</option>
+                                <option value="I1">I1 (Included)</option>
+                                <option value="SI2">SI2 (Slightly Included)</option>
+                                <option value="SI1">SI1 (Slightly Included)</option>
+                                <option value="VS2">VS2 (Very Slightly Included)</option>
+                                <option value="VS1">VS1 (Very Slightly Included)</option>
+                                <option value="VVS2">VVS2 (Very Very Slightly Included)</option>
+                                <option value="VVS1">VVS1 (Very Very Slightly Included)</option>
+                                <option value="IF">IF (Internally Flawless)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="submit-section">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-calculator"></i>
+                            <span class="btn-text">Predict Price</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if final_result %}
+        <div class="result-container">
+            <div class="result-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="result-title">Predicted Diamond Price</div>
+            <div class="result-price">${{ final_result }}</div>
+            <div class="result-subtitle">Based on your diamond specifications</div>
+            <a href="{{ url_for('predict_datapoint') }}" class="new-prediction-btn">
+                <i class="fas fa-plus"></i> New Prediction
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('diamondForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Hide error message
+            errorMessage.classList.remove('show');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Predicting...';
+
+            // Validate form
+            const requiredFields = ['carat', 'depth', 'table', 'x', 'y', 'z', 'cut', 'color', 'clarity'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#dc3545';
+                } else {
+                    input.style.borderColor = '#e1e5e9';
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                errorMessage.classList.add('show');
+                document.getElementById('errorText').textContent = 'Please fill in all required fields correctly.';
+
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.textContent = 'Predict Price';
+                return;
+            }
+        });
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#28a745';
+                } else {
+                    this.style.borderColor = '#e1e5e9';
+                }
+            });
+        });
+
+        // Smooth scroll to result if present
+        if (document.querySelector('.result-container')) {
+            setTimeout(() => {
+                document.querySelector('.result-container').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 500);
+        }
+    </script>
 </body>
 </html>
