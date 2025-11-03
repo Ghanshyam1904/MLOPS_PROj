@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as pd
 from sklearn.linear_model import LinearRegression,Ridge,Lasso,ElasticNet
 from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
@@ -8,9 +6,6 @@ from src.logger.logger import logging
 
 from src.util.util import save_object
 from src.util.util import evaluate_model
-import mlflow
-import mlflow.sklearn
-
 from dataclasses import dataclass
 import sys
 import os
@@ -23,8 +18,6 @@ class ModelTrainerConfig:
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
-        # MLflow experiment name can be overridden via env var MLFLOW_EXPERIMENT
-        self.mlflow_experiment = os.getenv('MLFLOW_EXPERIMENT', 'Diamond_Price_Experiment')
     def initiate_model_trainer(self,train_array,test_array):
         try:
             logging.info('Splitting Dependant and In-Dependant Variable from train and test')
@@ -62,23 +55,6 @@ class ModelTrainer:
             print("\n================================================================================")
             logging.info(f"Best Model Found, Model Name is : {best_model_name} , R2 Score is : {best_model_score}")
 
-            # Log experiment with MLflow (if available)
-            try:
-                mlflow.set_experiment(self.mlflow_experiment)
-                with mlflow.start_run():
-                    # Log model selection results
-                    mlflow.log_param('best_model_name', best_model_name)
-                    mlflow.log_metric('best_model_r2', float(best_model_score))
-
-                    # Log all model scores
-                    for mname, score in model_report.items():
-                        mlflow.log_metric(f'r2_{mname.strip()}', float(score))
-
-                    # Save the best model as an MLflow artifact
-                    mlflow.sklearn.log_model(best_model, artifact_path='model')
-
-            except Exception as e:
-                logging.info(f'Could not log to MLflow: {e}')
 
             # Always persist the selected model locally for serving
             save_object(

@@ -2,6 +2,7 @@ from src.logger.logger import logging
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
+from src.components.model_evaluation import ModelEvaluation
 
 if __name__ == '__main__':
     Ingestion = DataIngestion()
@@ -16,3 +17,5 @@ if __name__ == '__main__':
 
     trainer = ModelTrainer()
     trainer.initiate_model_trainer(train_arr,test_arr)
+    eval = ModelEvaluation()
+    eval.initiate_model_evaluation(train_arr,test_arr)

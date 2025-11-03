@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Ghanshyam%20Patil/PycharmProjects/MLOPS_PROj/mlruns/0/models/m-d9b97b94127043bfb4651c7019e60bd9/artifacts
+creation_timestamp: 1762156584487
+experiment_id: '0'
+last_updated_timestamp: 1762156594884
+model_id: m-d9b97b94127043bfb4651c7019e60bd9
+model_type: null
+name: model
+source_run_id: d4ef18382dcf46edb76aa16641fbb6f7
+status: 2
+status_message: null
