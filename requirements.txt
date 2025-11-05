@@ -1,3 +1,7 @@
-flask
-mlflow==2.2.2
+apache-airflow==2.8.1
+Flask
+Flask-Session
+mlflow
 pandas
+scikit-learn
+flask-session

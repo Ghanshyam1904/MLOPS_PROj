@@ -1,0 +1,10 @@
+__pycache__/
+.venv/
+env/
+*.log
+.git/
+.gitignore
+*.pyc
+*.pyo
+*.db
+airflow/airflow.db
